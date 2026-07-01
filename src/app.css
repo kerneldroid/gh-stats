@@ -1,0 +1,74 @@
+@import "@fontsource-variable/google-sans-flex/full.css";
+@import "@fontsource/google-sans-code/index.css";
+@import "m3-svelte/etc/styles.css";
+@import "m3-svelte/etc/recommended-styles.css";
+
+:root {
+  --m3-font: "Google Sans Flex Variable", "Google Sans Flex", system-ui, sans-serif;
+  --m3-font-mono: "Google Sans Code", monospace;
+  
+  @apply --m3-body-large;
+  background-color: var(--m3c-surface);
+  color: var(--m3c-on-surface);
+  font-family: var(--m3-font);
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  font-variation-settings: "ROND" 100;
+  
+  transition: background-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              border-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+              fill 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+              stroke 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.m3-container {
+  display: inline-flex !important;
+  box-sizing: border-box !important;
+}
+
+.m3-container:has(> input:not([type="checkbox"]):not([type="radio"])) {
+  height: 56px !important;
+  min-height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.m3-container > input:not([type="checkbox"]):not([type="radio"]) {
+  height: 100% !important;
+  min-height: 56px !important;
+}
+
+button.m3-container, a.m3-container {
+  height: 40px !important;
+  min-height: 40px !important;
+  padding: 0 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+button.m3-container.icon-left, a.m3-container.icon-left {
+  padding-left: 16px !important;
+  gap: 8px !important;
+}
+
+.m3-container.lines-1 {
+  height: 56px !important;
+}
+.m3-container.lines-2 {
+  height: 72px !important;
+}
+.m3-container.lines-3 {
+  height: 88px !important;
+}
