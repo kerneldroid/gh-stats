@@ -53,21 +53,31 @@
   const height = 80;
   const padding = 8;
 
-  const points = $derived(
-    chartData.length > 0
-      ? chartData.map((d, i) => {
-          const maxVal = Math.max(...chartData.map(pt => pt.downloads), 1);
-          const n = chartData.length;
-          
-          const x = n > 1 
-            ? padding + (i / (n - 1)) * (width - 2 * padding)
-            : width / 2;
-          
-          const y = height - padding - (d.downloads / maxVal) * (height - 2 * padding);
-          return { ...d, x, y };
-        })
-      : []
-  );
+  const points = $derived.by(() => {
+    if (chartData.length === 0) return [];
+
+    const downloads = chartData.map(pt => pt.downloads);
+    const maxVal = Math.max(...downloads, 1);
+    const minVal = Math.min(...downloads);
+    const useLog = minVal > 0 && maxVal / minVal > 10;
+    const n = chartData.length;
+
+    const scaleY = (v: number) => {
+      if (useLog) {
+        const logMax = Math.log10(maxVal + 1);
+        return Math.log10(v + 1) / logMax;
+      }
+      return v / maxVal;
+    };
+
+    return chartData.map((d, i) => {
+      const x = n > 1
+        ? padding + (i / (n - 1)) * (width - 2 * padding)
+        : width / 2;
+      const y = height - padding - scaleY(d.downloads) * (height - 2 * padding);
+      return { ...d, x, y };
+    });
+  });
 
   const linePath = $derived(
     points.length > 0
